@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.bbx</groupId>
+	<artifactId>iso.builder</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<repositories>
+		<!-- Repository hosting NetBeans modules, especially APIs. Versions are 
+			based on IDE releases, e.g.: RELEASE691 To create your own repository, use: 
+			nbm:populate-repository -->
+		<repository>
+			<id>netbeans</id>
+			<name>NetBeans</name>
+			<url>http://bits.netbeans.org/nexus/content/groups/netbeans/</url>
+		</repository>
+	</repositories>
+
+
+	<properties>
+		<iso.name>toto</iso.name>
+		<iso.preparation.dir>toto.dir</iso.preparation.dir>
+	</properties>
+
+	<build>
+		<plugins>
+			<!-- <plugin> -->
+			<!-- ISO generation. -->
+			<!-- <groupId>org.codehaus.mojo</groupId> -->
+			<!-- <artifactId>exec-maven-plugin</artifactId> -->
+			<!-- <version>1.2.1</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>exec</goal> -->
+			<!-- </goals> -->
+			<!-- <phase>verify</phase> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- <configuration> -->
+			<!-- <executable>genisoimage</executable> -->
+			<!-- <arguments> -->
+			<!-- <argument>-V</argument> -->
+			<!-- <argument>${iso.name}</argument> -->
+			<!-- <argument>-m</argument> -->
+			<!-- <argument>*.iso</argument> -->
+			<!-- <argument>-dir-mode</argument> -->
+			<!-- <argument>0555</argument> -->
+			<!-- <argument>-file-mode</argument> -->
+			<!-- <argument>0555</argument> -->
+			<!-- <argument>-gid</argument> -->
+			<!-- <argument>0</argument> -->
+			<!-- <argument>-uid</argument> -->
+			<!-- <argument>0</argument> -->
+			<!-- <argument>-iso-level</argument> -->
+			<!-- <argument>2</argument> -->
+			<!-- <argument>-J</argument> -->
+			<!-- <argument>-joliet-long</argument> -->
+			<!-- <argument>-r</argument> -->
+			<!-- <argument>-o</argument> -->
+			<!-- <argument>${project.build.directory}/${ iso.name }</argument> -->
+			<!-- <argument>${iso.preparation.dir}</argument> -->
+			<!-- </arguments> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-resources-plugin</artifactId> -->
+			<!-- <version>3.0.2</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>copy-resources</id> -->
+			<!-- here the phase you need -->
+			<!-- <phase>validate</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>copy-resources</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <outputDirectory>${basedir}/target/extra-resources</outputDirectory> -->
+			<!-- <resources> -->
+			<!-- <resource> -->
+			<!-- <directory>src/non-packaged-resources</directory> -->
+			<!-- <filtering>true</filtering> -->
+			<!-- </resource> -->
+			<!-- </resources> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/cdrom-assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- append to the packaging phase. -->
+						<goals>
+							<goal>single</goal> <!-- goals == mojos -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.stephenc.jetties</groupId>
+			<artifactId>jetty-rpm</artifactId>
+			<version>8.1.6</version>
+			<type>rpm</type>
+		</dependency>
+		<dependency>
+			<groupId>org.bbx</groupId>
+			<artifactId>swind.tu</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.netbeans.modules</groupId>
+			<artifactId>org-netbeans-core-startup</artifactId>
+			<version>RELEASE701</version>
+			<type>nbm</type>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>simple-ear</artifactId>
+			<version>1.6.2</version>
+			<type>ear</type>
+		</dependency>
+
+	</dependencies>
+</project>
